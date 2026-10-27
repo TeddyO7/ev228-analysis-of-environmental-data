@@ -10,4 +10,8 @@ ic(mean_np)
 
 descriptive_statistics = fe.descriptive_statistics(in_list, 0.1 , 0.9)
 ic(descriptive_statistics)
+#finsih histogram and distributions below
+gamma = np.random.gamma( 3 , 1 , in_list)
 
+Call_gamma = fe.descriptive_statistics(gamma)
+ic(Call_gamma)
