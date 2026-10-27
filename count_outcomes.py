@@ -28,10 +28,7 @@ x_bins = np.arange(1, 7)
 val_counts, bin_edges = np.histogram(list_rolls, bins=6, range=(1, 6))
 
 fig, ax = plt.subplots()
-ax.bar(x_bins, val_counts, color='#6e7aaa')
-plt.xlabel('Possible values', fontsize=14)
-plt.xticks(fontsize=14)
-plt.ylabel('Count', fontsize=14)
-plt.yticks(fontsize=14)
+ax.pie(val_counts)
+
 plt.title('Counts of each value from rolling die')
-plt.savefig('/Users/teddyopler/Desktop/Figures/dice_roll_30000.pdf')
+plt.savefig('/Users/teddyopler/Desktop/Figures/dice_roll_pie_1.pdf')
