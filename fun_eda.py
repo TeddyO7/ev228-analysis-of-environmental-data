@@ -13,33 +13,81 @@ def mean_calculator(in_list):
 
     return mean
 
-def descriptive_statistics(in_list, q_low=0.1, q_high=0.9):
-    n = len(in_list)
-    
-    sum_in_list = np.sum(in_list)
-    first_moment = np.mean(in_list)
-    second_moment = np.var(in_list)
-    third_moment = stats.skew(in_list, nan_policy='omit')
-    fourth_moment = stats.kurtosis(in_list, nan_policy='omit')
-    
-    median = np.nanquantile(in_list, 0.5)
-    percentile_high = np.nanquantile(in_list, q_high)
-    percentile_low = np.nanquantile(in_list, q_low)
+def descriptive_statistics(in_list, axis=None, q_low=0.1, q_high=0.9,):
+    if axis is None:
+        n = len(in_list)
+        
+        sum_in_list = np.sum(in_list)
+        first_moment = np.mean(in_list)
+        second_moment = np.var(in_list)
+        third_moment = stats.skew(in_list, nan_policy='omit')
+        fourth_moment = stats.kurtosis(in_list, nan_policy='omit')
+        
+        median = np.nanquantile(in_list, 0.5)
+        percentile_high = np.nanquantile(in_list, q_high)
+        percentile_low = np.nanquantile(in_list, q_low)
 
-    dictionary_moments = {
-            "Mean" : first_moment, 
-            "Variance" : second_moment, 
-            "Skewness" : third_moment,
-            "Kurtosis" : fourth_moment}
-    dictionary_general_stats = {"Number of Samples" : n,
-            "Sum" : sum_in_list , "Median" : median,
-            "High Percentile" : percentile_high,
-            "Low Percentile" : percentile_low}
+        dictionary_moments = {
+                "Mean" : first_moment, 
+                "Variance" : second_moment, 
+                "Skewness" : third_moment,
+                "Kurtosis" : fourth_moment}
+        dictionary_general_stats = {"Number of Samples" : n,
+                "Sum" : sum_in_list , "Median" : median,
+                "High Percentile" : percentile_high,
+                "Low Percentile" : percentile_low}
+    elif type(axis) == int:
+        n = len(in_list, axis=axis)
+        
+        sum_in_list = np.sum(in_list, axis=axis)
+        first_moment = np.mean(in_list, axis=axis)
+        second_moment = np.var(in_list, axis=axis)
+        third_moment = stats.skew(in_list, axis=axis, nan_policy='omit')
+        fourth_moment = stats.kurtosis(in_list, axis=axis, nan_policy='omit')
+        
+        median = np.nanquantile(in_list, 0.5)
+        percentile_high = np.nanquantile(in_list, q_high)
+        percentile_low = np.nanquantile(in_list, q_low)
+
+        dictionary_moments = {
+                "Mean" : first_moment, 
+                "Variance" : second_moment, 
+                "Skewness" : third_moment,
+                "Kurtosis" : fourth_moment}
+        dictionary_general_stats = {"Number of Samples" : n,
+                "Sum" : sum_in_list , "Median" : median,
+                "High Percentile" : percentile_high,
+                "Low Percentile" : percentile_low}
+    elif axis == 'flat':
+        flat_data = np.ravel(in_list)
+        sum_in_list = np.sum(flat_data, axis=axis)
+        first_moment = np.mean(flat_data)
+        second_moment = np.var(flat_data)
+        third_moment = stats.skew(flat_data)
+        fourth_moment = stats.kurtosis(flat_data)
+        
+        median = np.nanquantile(flat_data, 0.5)
+        percentile_high = np.nanquantile(flat_data, q_high)
+        percentile_low = np.nanquantile(flat_data, q_low)
+
+        dictionary_moments = {
+                "Mean" : first_moment, 
+                "Variance" : second_moment, 
+                "Skewness" : third_moment,
+                "Kurtosis" : fourth_moment}
+        dictionary_general_stats = {"Number of Samples" : n,
+                "Sum" : sum_in_list , "Median" : median,
+                "High Percentile" : percentile_high,
+                "Low Percentile" : percentile_low}   
+    else:
+         raise ValueError     
+        
+         
     return dictionary_moments , dictionary_general_stats
 
 def plot_hist(
         in_list , bin_width,
-    save_name = '/Users/teddyopler/Documents/Histogram-DescriptiveStatistics.pdf'):
+    save_name = '/Users/teddyopler/Documents/Hload_netcdf.pdf'):
         ic("Binwidth: " + str(bin_width))
         x_bins = np.arange(
             np.min(in_list) -2 * bin_width,
