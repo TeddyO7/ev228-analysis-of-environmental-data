@@ -38,7 +38,7 @@ def descriptive_statistics(in_data, custom_q=None):
 
 def plot_hist(
         in_data, binwidth,
-        save_name='/Users/danielhueholt/Documents/Figures/ev228_fig/distribution.pdf'):
+        save_name='/Users/teddyopler/Desktop/ev228_figures/Station_load_hist.pdf'):
     ''' Plot histogram for a list of numbers '''
     ic("Binwidth: " + str(binwidth))
     x_bins = np.arange(
